@@ -9,7 +9,6 @@ const widthProportion = "100%";
 
 const useStyles = makeStyles(theme => ({
   footer: {
-    position: "absolute",
     bottom: 0,
     width: widthProportion
   }

@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { getIn } from "formik";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,7 +55,7 @@ function QuizAnswers() {
         {dates.length != 0 && !loading ? (
           dates.map(date => (
             <Grid item xs={4}>
-              <Link to={`/${date.replace("-", "")}` + `/answersheet`}>
+              <Link to={`/answersheet` + `/${date}`}>
                 <Paper className={classes.paper}>
                   <Button variant="contained" color="secondary">
                     {date}

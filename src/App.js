@@ -5,9 +5,6 @@ import OldQuiz from "./components/OldQuiz";
 import QuizForm from "./components/QuizForm";
 import QuizAnswers from "./components/QuizAnswers";
 import QuizAnswer from "./components/QuizAnswer";
-import LogIn from "./components/SignIn/SignIn";
-import LogOut from "./components/SignOut/SignOut";
-import FortDetailPage from "./components/FortDetailPage";
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
 import PageNotFound from "./components/PageNotFound";
@@ -24,7 +21,7 @@ function App() {
         <Route path="/datemonthquiz" component={QuizForm} />
         <Route path="/datemonthresult" component={OldQuiz} />
         <Route path="/answerSheets" component={QuizAnswers} />
-        <Route path="/answerSheet" component={QuizAnswer} />
+        <Route path="/answerSheet/:date" component={QuizAnswer} />
         <Route component={PageNotFound} />
       </Switch>
       <Footer />
