@@ -24,7 +24,8 @@ const useStyles = makeStyles(theme => ({
   header: {
     position: "fixed",
     width: "100%",
-    zIndex: 1
+    zIndex: 1,
+    left: 2
   }
 }));
 

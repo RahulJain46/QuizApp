@@ -12,6 +12,13 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles({
   table: {
     minWidth: 650
+  },
+  root :{
+    flexGrow: 1,
+    marginTop: 150,
+    position: "absolute",
+    marginBottom: 73,
+    width: "100%"
   }
 });
 
@@ -50,6 +57,7 @@ export default function SimpleTable(props) {
   }, []);
 
   return (
+    <div className={classes.root}>
     <TableContainer component={Paper}>
       {!loading ? (
         <Table className={classes.table} aria-label="simple table">
@@ -81,5 +89,6 @@ export default function SimpleTable(props) {
         </div>
       )}
     </TableContainer>
+    </div>
   );
 }
