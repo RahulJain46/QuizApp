@@ -18,19 +18,18 @@ const useStyles = makeStyles(theme => ({
 
 function Home() {
   const classes = useStyles();
+  const date = new Date();
+  const day = new Date().getDate();
+  const year = new Date().getFullYear();
+  const month = date.toLocaleString("default", { month: "short" });
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            26/04/2020 की क्विज का मुख्य विषय "तीर्थंकरों के नाम व चिन्ह" रहेगा।
-          </Paper>
-        </Grid>
         <Grid item xs={6}>
           <Link to="/datemonthquiz">
             <Paper className={classes.paper}>
               <Button variant="contained" color="secondary">
-                JAIN QUIZ DATE-25-APR
+                JAIN QUIZ {day + "-" + month + "-" + year}
               </Button>
             </Paper>
           </Link>
@@ -39,7 +38,7 @@ function Home() {
           <Link to="/datemonthresult">
             <Paper className={classes.paper}>
               <Button variant="contained" color="secondary">
-                QUIZ RESULT - DATE-25 APR
+                QUIZ RESULT {day + "-" + month + "-" + year}
               </Button>
             </Paper>
           </Link>
