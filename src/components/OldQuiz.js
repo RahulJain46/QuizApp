@@ -9,7 +9,10 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginTop: 150,
+    position: "absolute",
+    marginBottom: 73
   },
   paper: {
     padding: theme.spacing(2),

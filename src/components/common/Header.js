@@ -7,7 +7,8 @@ import Paper from "@material-ui/core/Paper";
 const useStyles = makeStyles(theme => ({
   navlinks: {
     top: 18,
-    position: "relative"
+    position: "relative",
+    height: 0
   },
   navheader: {
     position: "relative",
@@ -19,6 +20,11 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center"
+  },
+  header: {
+    position: "fixed",
+    width: "100%",
+    zIndex: 1
   }
 }));
 
@@ -26,7 +32,7 @@ const Header = () => {
   const classes = useStyles();
   const activeStyle = { color: "#F15B2A" };
   return (
-    <div className="header">
+    <div className={classes.header}>
       <nav className={classes.navlinks}>
         <NavLink
           to="/"
