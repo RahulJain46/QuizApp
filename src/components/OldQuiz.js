@@ -52,8 +52,8 @@ function OldQuiz() {
         </Grid>
         {dates.length != 0 && !loading ? (
           dates.map(date => (
-            <div>
-              <Grid item xs={12}>
+            <React.Fragment>
+              <Grid item xs={6}>
                 <Link to={`/answersheet` + `/${date}`}>
                   <Paper className={classes.paper}>
                     <Button variant="contained" color="secondary">
@@ -62,7 +62,7 @@ function OldQuiz() {
                   </Paper>
                 </Link>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 <Link to={`/answersheet` + `/${date}`}>
                   <Paper className={classes.paper}>
                     <Button variant="contained" color="secondary">
@@ -71,7 +71,7 @@ function OldQuiz() {
                   </Paper>
                 </Link>
               </Grid>
-            </div>
+            </React.Fragment>
           ))
         ) : (
           <div className={classes.loading}>
