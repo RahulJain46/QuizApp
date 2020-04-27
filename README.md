@@ -1,4 +1,8 @@
-FORT PROJECT
+Quiz App
+
+This is the application build to help in increasing the knowldege of Jainism and admin can upload the quiz daily .
+The result of daily quiz will be publish daily .
+You can see old date quiz result and answer also .
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
