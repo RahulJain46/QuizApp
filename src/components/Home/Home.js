@@ -12,7 +12,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     marginTop: 150,
     position: "absolute",
-    marginBottom: 73
+    marginBottom: 73,
+    left: "25%",
+    right: "25%"
   },
   paper: {
     padding: theme.spacing(2),
@@ -54,78 +56,6 @@ function Home() {
             <Paper className={classes.paper}>
               <Button variant="contained" color="secondary">
                 OLD QUIZ & RESULTS
-              </Button>
-            </Paper>
-          </Link>
-        </Grid>
-        <Grid item xs={12}>
-          <Link to="/oldquizresults">
-            <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
-                OLD QUIZ , RESULTS
-              </Button>
-            </Paper>
-          </Link>
-        </Grid>
-        <Grid item xs={12}>
-          <Link to="/oldquizresults">
-            <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
-                OLD QUIZ , RESULTS & ANSWER SHEETS
-              </Button>
-            </Paper>
-          </Link>
-        </Grid>
-        <Grid item xs={12}>
-          <Link to="/oldquizresults">
-            <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
-                OLD QUIZ , RESULTS & ANSWER SHEETS
-              </Button>
-            </Paper>
-          </Link>
-        </Grid>
-        <Grid item xs={12}>
-          <Link to="/oldquizresults">
-            <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
-                OLD QUIZ , RESULTS & ANSWER SHEETS
-              </Button>
-            </Paper>
-          </Link>
-        </Grid>
-        <Grid item xs={12}>
-          <Link to="/oldquizresults">
-            <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
-                OLD QUIZ , RESULTS & ANSWER SHEETS
-              </Button>
-            </Paper>
-          </Link>
-        </Grid>
-        <Grid item xs={12}>
-          <Link to="/oldquizresults">
-            <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
-                OLD QUIZ , RESULTS & ANSWER SHEETS
-              </Button>
-            </Paper>
-          </Link>
-        </Grid>
-        <Grid item xs={12}>
-          <Link to="/oldquizresults">
-            <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
-                OLD QUIZ , RESULTS & ANSWER SHEETS
-              </Button>
-            </Paper>
-          </Link>
-        </Grid>
-        <Grid item xs={12}>
-          <Link to="/oldquizresults">
-            <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
-                OLD QUIZ , RESULTS & ANSWER SHEETS
               </Button>
             </Paper>
           </Link>
