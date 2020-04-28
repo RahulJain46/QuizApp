@@ -9,10 +9,10 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(theme => ({
   root: {
-        flexGrow: 1,
-        marginTop: 150,
-        position: "absolute",
-        marginBottom: 73
+    flexGrow: 1,
+    marginTop: 150,
+    position: "absolute",
+    marginBottom: 73
   },
   paper: {
     padding: theme.spacing(2),
@@ -46,7 +46,7 @@ function OldQuiz() {
         <Grid item xs={12}>
           <Paper className={classes.paper}>
             <Typography variant="h4" gutterBottom>
-              OLD QUIZ , RESULTS & ANSWER SHEETS
+              OLD QUIZ & RESULTS
             </Typography>
           </Paper>
         </Grid>
@@ -54,16 +54,16 @@ function OldQuiz() {
           dates.map(date => (
             <React.Fragment>
               <Grid item xs={6}>
-                <Link to={`/answersheet` + `/${date}`}>
+                <Link to={`/datemonthquiz` + `/${date}`}>
                   <Paper className={classes.paper}>
                     <Button variant="contained" color="secondary">
-                      JAIN QUIZ {date}
+                      QUIZ {date}
                     </Button>
                   </Paper>
                 </Link>
               </Grid>
               <Grid item xs={6}>
-                <Link to={`/answersheet` + `/${date}`}>
+                <Link to={`/quizresult` + `/${date}`}>
                   <Paper className={classes.paper}>
                     <Button variant="contained" color="secondary">
                       QUIZ RESULT {date}

@@ -29,16 +29,16 @@ function Home() {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <Link to="/datemonthquiz">
+          <Link to={`/datemonthquiz` + `/${day + "-" + month}`}>
             <Paper className={classes.paper}>
               <Button variant="contained" color="secondary">
-                JAIN QUIZ {day + "-" + month + "-" + year}
+                QUIZ {day + "-" + month + "-" + year}
               </Button>
             </Paper>
           </Link>
         </Grid>
         <Grid item xs={6}>
-          <Link to="/datemonthresult">
+          <Link to={`/quizresult` + `/${day + "-" + month}`}>
             <Paper className={classes.paper}>
               <Button variant="contained" color="secondary">
                 QUIZ RESULT {day + "-" + month + "-" + year}
@@ -50,7 +50,7 @@ function Home() {
           <Link to="/oldquizresults">
             <Paper className={classes.paper}>
               <Button variant="contained" color="secondary">
-                OLD QUIZ , RESULTS & ANSWER SHEETS
+                OLD QUIZ & RESULTS
               </Button>
             </Paper>
           </Link>
@@ -59,7 +59,7 @@ function Home() {
           <Link to="/oldquizresults">
             <Paper className={classes.paper}>
               <Button variant="contained" color="secondary">
-                OLD QUIZ , RESULTS & ANSWER SHEETS
+                OLD QUIZ , RESULTS
               </Button>
             </Paper>
           </Link>

@@ -4,6 +4,7 @@ import HomePage from "./components/Home/Home";
 import OldQuiz from "./components/OldQuiz";
 import QuizForm from "./components/QuizForm";
 import QuizAnswers from "./components/QuizAnswers";
+import QuizResult from "./components/QuizResult";
 import QuizAnswer from "./components/QuizAnswer";
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
@@ -18,10 +19,11 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/oldquizresults" component={OldQuiz} />
-        <Route path="/datemonthquiz" component={QuizForm} />
+        <Route path="/datemonthquiz/:date" component={QuizForm} />
         <Route path="/datemonthresult" component={OldQuiz} />
         <Route path="/answerSheets" component={QuizAnswers} />
         <Route path="/answerSheet/:date" component={QuizAnswer} />
+        <Route path="/quizresult/:date" component={QuizResult} />
         <Route component={PageNotFound} />
       </Switch>
       <Footer />
