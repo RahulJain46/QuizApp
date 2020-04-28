@@ -12,7 +12,8 @@ const useStyles = makeStyles(theme => ({
   },
   navheader: {
     position: "relative",
-    padding: 30
+    padding: 30,
+    color: "#1d1d1f"
   },
   root: {
     flexGrow: 1
@@ -26,12 +27,17 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     zIndex: 1,
     left: 2
+  },
+  upperheader: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    background: "#00acc1"
   }
 }));
 
 const Header = () => {
   const classes = useStyles();
-  const activeStyle = { color: "#F15B2A" };
+  const activeStyle = { color: "#ffebee" };
   return (
     <div className={classes.header}>
       <nav className={classes.navlinks}>
@@ -63,7 +69,7 @@ const Header = () => {
       <div className={classes.root}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Paper className={classes.paper}>
+            <Paper className={classes.upperheader}>
               <Typography variant="h4" gutterBottom>
                 UJJAIN JAIN QUIZ PORTAL
               </Typography>

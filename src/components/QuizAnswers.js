@@ -12,7 +12,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     marginTop: 150,
     position: "absolute",
-    marginBottom: 73
+    marginBottom: 73,
+    left: "25%",
+    right: "25%"
   },
   paper: {
     padding: theme.spacing(2),
@@ -57,7 +59,7 @@ function QuizAnswers() {
         </Grid>
         {dates.length != 0 && !loading ? (
           dates.map(date => (
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <Link to={`/answersheet` + `/${date}`}>
                 <Paper className={classes.paper}>
                   <Button variant="contained" color="secondary">

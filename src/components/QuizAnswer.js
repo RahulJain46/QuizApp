@@ -18,7 +18,17 @@ const useStyles = makeStyles({
     marginTop: 150,
     position: "absolute",
     marginBottom: 73,
-    width: "100%"
+    left: "20%",
+    right: "20%"
+  },
+  tablecolumn: {
+    fontWeight: "600",
+    border: "3px solid",
+    position: "fixed",
+    width: "60%",
+    backgroundColor: "white",
+    marginTop: -9
+    
   }
 });
 
@@ -61,7 +71,7 @@ export default function SimpleTable(props) {
     <TableContainer component={Paper}>
       {!loading ? (
         <Table className={classes.table} aria-label="simple table">
-          <TableHead>
+          <TableHead className={classes.tablecolumn}>
             <TableRow>
               <TableCell>QUESTIONS</TableCell>
               <TableCell align="right">ANSWER</TableCell>
