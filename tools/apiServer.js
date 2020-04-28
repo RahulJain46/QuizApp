@@ -2,6 +2,7 @@
 const jsonServer = require("json-server");
 const server = jsonServer.create();
 const path = require("path");
+var requestIp = require("request-ip");
 const router = jsonServer.router(path.join(__dirname, "questions.json"));
 
 // Can pass a limited number of options to this to override (some) defaults. See https://github.com/typicode/json-server#api
@@ -21,6 +22,8 @@ server.use(function(req, res, next) {
 // Add createdAt to all POSTS
 server.use((req, res, next) => {
   if (req.method === "POST") {
+    var clientIp = requestIp.getClientIp(req);
+    console.log(clientIp);
     req.body.createdAt = Date.now();
   }
   // Continue to JSON Server router

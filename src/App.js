@@ -5,6 +5,7 @@ import OldQuiz from "./components/OldQuiz";
 import QuizForm from "./components/QuizForm";
 import QuizAnswers from "./components/QuizAnswers";
 import QuizResult from "./components/QuizResult";
+import UserResponse from "./components/UserResponse";
 import QuizAnswer from "./components/QuizAnswer";
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/answerSheets" component={QuizAnswers} />
         <Route path="/answerSheet/:date" component={QuizAnswer} />
         <Route path="/quizresult/:date" component={QuizResult} />
+        <Route path="/yourresponse/:id" component={UserResponse} />
         <Route component={PageNotFound} />
       </Switch>
       <Footer />

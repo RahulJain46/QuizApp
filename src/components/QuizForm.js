@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Field, Form, Formik } from "formik";
+import { v5 as uuidv5 } from "uuid";
 import { TextField } from "formik-material-ui";
 import { useForm, Controller } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import { fontSize, letterSpacing } from "@material-ui/system";
 const leftproportion = "41%";
@@ -50,6 +52,7 @@ const useStyles = makeStyles(theme => ({
 
 function QuizForm(props) {
   const classes = new useStyles();
+  const history = useHistory();
   const { register, handleSubmit, watch, errors, control } = useForm();
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -70,15 +73,46 @@ function QuizForm(props) {
       });
   }, []);
 
-  const onSubmit = data => {
+  const calcaulateScore = (rightAns, userAns) => {
+    let score = 0;
+    rightAns.map(answers => {
+      answers.map(answer => {
+        if (userAns.get(answer.question) === answer.answer) {
+          score++;
+        }
+      });
+    });
+    return score;
+  };
+
+  const onSubmit = (data, ques) => {
+    var myMap = new Map();
     console.log(data);
+    for (const key in data) {
+      myMap.set(key, data[key]);
+    }
+    const score = calcaulateScore(ques, myMap);
+    const uuid = uuidv5(
+      myMap.get("fullname") + myMap.get("mobile"),
+      uuidv5.DNS
+    );
+    const userData = Object.assign(data, { id: uuid, score });
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData)
+    };
+    fetch("http://localhost:3001/users", options).then(res => {
+      alert("Your score is : " + score);
+      history.push(`/yourresponse/${uuid}`);
+    });
   }; // your form submit function which will invoke after successful validation
 
   console.log(watch("example")); // you can watch individual input by pass the name of the input
 
   return (
     <div className={classes.container}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(data => onSubmit(data, questions))}>
         <label className={classes.label}>Full Name</label>
         <input
           className={classes.input}
@@ -90,7 +124,7 @@ function QuizForm(props) {
         <input
           className={classes.input}
           name="city"
-          ref={register({ required: true, maxLength: 10 })}
+          ref={register({ required: true })}
         />
         <label className={classes.label}>Address In Short</label>
         <input
