@@ -55,13 +55,17 @@ function QuizForm(props) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const questionsArray = [];
     const date = props.match.params.date;
     fetch(`http://localhost:3001/data?date=${date}`)
-      .then(questionJson => {
-        return questionJson.json();
+      .then(questionsJosn => {
+        return questionsJosn.json();
       })
       .then(questions => {
-        setQuestions(questions);
+        questions.map(question => {
+          questionsArray.push(question.questions);
+        });
+        setQuestions(questionsArray);
         setLoading(false);
       });
   }, []);
@@ -74,31 +78,56 @@ function QuizForm(props) {
 
   return (
     <div className={classes.container}>
-      {questions.length != 0 ? console.log(questions[0]) : ""}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label className={classes.label}>Example</label>
+        <label className={classes.label}>Full Name</label>
         <input
           className={classes.input}
-          name="example"
-          defaultValue="test"
+          placeholder="Full Name"
+          name="fullname"
           ref={register}
         />
-        <label className={classes.label}>ExampleRequired</label>
+        <label className={classes.label}>CITY/TOWN/VILLAGE</label>
         <input
           className={classes.input}
-          name="exampleRequired"
+          name="city"
           ref={register({ required: true, maxLength: 10 })}
         />
-        <fieldset>
-          <label>question1</label>
-          <input type="checkbox" value="YES" name="question1" ref={register} />
-          <input type="checkbox" value="NO" name="question1" ref={register} />
-        </fieldset>
-        <fieldset>
-          <label>question2</label>
-          <input type="checkbox" value="YES" name="question2" ref={register} />
-          <input type="checkbox" value="NO" name="question2" ref={register} />
-        </fieldset>
+        <label className={classes.label}>Address In Short</label>
+        <input
+          className={classes.input}
+          placeholder="Address"
+          name="address"
+          ref={register}
+        />
+        <label className={classes.label}>Mobile No.</label>
+        <input
+          className={classes.input}
+          placeholder="Mobile Number"
+          name="mobile"
+          ref={register}
+        />
+        {questions.map(question => {
+          return question.map(row => (
+            <fieldset>
+              <label>{row.question}</label>
+              <input
+                type="radio"
+                value="YES"
+                name={row.question}
+                ref={register}
+                label="YES"
+              />
+              <label>YES</label>
+              <input
+                type="radio"
+                value="NO"
+                name={row.question}
+                ref={register}
+              />
+              <label>NO</label>
+            </fieldset>
+          ));
+        })}
         {errors.exampleRequired && <p>This field is required</p>}
         <input className={classes.button} type="submit" />
       </form>

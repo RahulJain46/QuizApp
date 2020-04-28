@@ -24,7 +24,9 @@ function Home() {
   const date = new Date();
   const day = new Date().getDate();
   const year = new Date().getFullYear();
-  const month = date.toLocaleString("default", { month: "short" });
+  const month = date
+    .toLocaleString("default", { month: "short" })
+    .toUpperCase();
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
