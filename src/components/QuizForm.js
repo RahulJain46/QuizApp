@@ -177,26 +177,48 @@ function QuizForm(props) {
     //    userResponseArray.push(userResponseJson)
 
     // }
-    let userJson1 = {};
-    fetch(`http://localhost:3001/users/e2985cf1-edd5-5a49-938d-2bb63b4f1bcf`)
+    fetch(`http://localhost:3001/users/${uuid1}`)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log("rahul");
+          return Promise.reject("some error happend maybe 404");
+        }
+      })
+      .catch(error => console.log("error is", error));
+
+    let options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userResponseJson)
+    };
+    fetch(`http://localhost:3001/users/`, options).then(res => {
+      alert("your score is : " + score);
+      history.push(`/yourresponse/${uuid}`);
+    });
+
+    fetch(`http://localhost:3001/users/${uuid1}`)
       .then(userjson => {
         return userjson.json();
       })
       .then(user => {
         console.log(user);
         user.userAnswer.push(userData);
-        console.log(user);
+        return user;
+      })
+      .then(json => {
+        console.log(json);
+        let options = {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(json)
+        };
+        fetch(`http://localhost:3001/users/${uuid1}`, options).then(res => {
+          alert("your score is : " + score);
+          history.push(`/yourresponse/${uuid}`);
+        });
       });
-
-    // const options = {
-    //   method: "PATCH",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(userResponseJson)
-    // };
-    //fetch(`http://localhost:3001/users/${uuid}`, options).then(res => {
-    //return WarningButton(score);
-    // history.push(`/yourresponse/${uuid}`);
-    // });
   }; // your form submit function which will invoke after successful validation
 
   console.log(watch("example")); // you can watch individual input by pass the name of the input
