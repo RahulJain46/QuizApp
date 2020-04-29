@@ -184,7 +184,7 @@ function QuizForm(props) {
       })
       .then(user => {
         console.log(user);
-        user.userAnswer[0].push(userData);
+        user.userAnswer.push(userData);
         console.log(user);
       });
 
