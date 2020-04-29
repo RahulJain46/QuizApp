@@ -1,25 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { Field, Form, Formik } from "formik";
 import { v5 as uuidv5 } from "uuid";
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-
-
-import { fontSize, letterSpacing } from "@material-ui/system";
-const leftproportion = "41%";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -32,12 +19,11 @@ const useStyles = makeStyles(theme => ({
     left: "30%",
     width: "100%"
   },
-  questionfields:{
+  questionfields: {
     border: "1px solid #cfd8dc",
     boxShadow: "7px 5px #eeeeee",
     margin: 11,
     display: "block"
-    
   },
   input: {
     boxShadow: "3px 5px #eeeeee",
@@ -76,7 +62,6 @@ const useStyles = makeStyles(theme => ({
 function QuizForm(props) {
   const classes = new useStyles();
   const history = useHistory();
-  const [open, setOpen] = React.useState(false);
   const { register, handleSubmit, watch, errors, control } = useForm();
   const [questions, setQuestions] = useState([]);
   const [questionsId, setQuestionsId] = useState([]);
@@ -101,14 +86,6 @@ function QuizForm(props) {
       });
   }, []);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const calcaulateScore = (rightAns, userAns) => {
     let score = 0;
     rightAns.map(answers => {
@@ -121,43 +98,8 @@ function QuizForm(props) {
     return score;
   };
 
-  function WarningButton(score) {
-    // return React.createElement(CustomButton, {color: 'red'}, null);
-    return alert(
-      <div>
-        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-          Open alert dialog
-        </Button>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Use Google's location service?"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Disagree
-            </Button>
-            <Button onClick={handleClose} color="primary" autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    );
-  }
   const onSubmit = (data, ques, quesId) => {
     var myMap = new Map();
-    // console.log(data);
     for (const key in data) {
       myMap.set(key, data[key]);
     }
@@ -168,7 +110,6 @@ function QuizForm(props) {
     );
     const date = props.match.params.date;
     const uuid1 = uuidv5(date, uuidv5.DNS);
-    console.log(uuid1);
     const userData = Object.assign(data, { id: uuid, score });
     let userResponseJson = {};
     let userAnswer = [];
@@ -176,145 +117,156 @@ function QuizForm(props) {
     userResponseJson.date = date;
     userResponseJson.userAnswer = userAnswer;
     userResponseJson.id = uuid1;
-    //    userResponseJson.id =
-    // console.log(userResponseJson);
-    // let userResponseArray =[]
-    // let userArray = []
-    // let userAnswer ={}
-    // for(const key in userData){
-    //    userResponseJson["fullname"] = userData["fullname"];
-    //    userResponseJson["city"] = userData["city"];
-    //    userResponseJson["address"] = userData["address"];
-    //    userResponseJson["mobile"] = userData["mobile"];
-    //    if(key != "fullname" ||key != "city" ||key != "address" ||key != "mobile"){
-    //     userAnswer[key]= userData[key]
-    //     userArray.push(userAnswer);
-    //    }
-    //    userResponseArray.push(userResponseJson)
-    //    userResponseArray.push(userResponseJson)
-
-    // }
-    fetch(`http://localhost:3001/users/${uuid1}`)
+    let flag = false;
+    let exists = false;
+    fetch(`http://localhost:3001/users/`)
       .then(response => {
-        if (response.ok) {
-          return response.json();
+        return response.json();
+      })
+      .then(usersJson => {
+        if (usersJson.length != 0) {
+          usersJson.map(userJson => {
+            if (
+              !(
+                Object.keys(userJson).length === 0 &&
+                userJson.constructor === Object
+              )
+            ) {
+              if (userJson.date === date) {
+                flag = true;
+                userJson.userAnswer.map(user => {
+                  if (user.id === uuid) {
+                    exists = true;
+                    return;
+                  }
+                });
+              }
+            }
+          });
+        }
+        if (exists) {
+          alert("user already exists");
+          // break;
+          return;
         } else {
-          console.log("rahul");
-          return Promise.reject("some error happend maybe 404");
+          if (!flag) {
+            let options = {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(userResponseJson)
+            };
+            fetch(`http://localhost:3001/users/`, options).then(res => {
+              alert("your score is : " + score);
+              history.push(`/yourresponse/${uuid}`);
+            });
+            return;
+          } else {
+            fetch(`http://localhost:3001/users/${uuid1}`)
+              .then(userjson => {
+                return userjson.json();
+              })
+              .then(user => {
+                console.log(user);
+                user.userAnswer.push(userData);
+                return user;
+              })
+              .then(json => {
+                console.log(json);
+                let options = {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(json)
+                };
+                fetch(`http://localhost:3001/users/${uuid1}`, options).then(
+                  res => {
+                    alert("your score is : " + score);
+                    return history.push(`/yourresponse/${uuid}`);
+                  }
+                );
+              });
+          }
         }
       })
       .catch(error => console.log("error is", error));
-
-    let options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userResponseJson)
-    };
-    fetch(`http://localhost:3001/users/`, options).then(res => {
-      alert("your score is : " + score);
-      history.push(`/yourresponse/${uuid}`);
-    });
-
-    fetch(`http://localhost:3001/users/${uuid1}`)
-      .then(userjson => {
-        return userjson.json();
-      })
-      .then(user => {
-        console.log(user);
-        user.userAnswer.push(userData);
-        return user;
-      })
-      .then(json => {
-        console.log(json);
-        let options = {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(json)
-        };
-        fetch(`http://localhost:3001/users/${uuid1}`, options).then(res => {
-          alert("your score is : " + score);
-          history.push(`/yourresponse/${uuid}`);
-        });
-      });
-  }; // your form submit function which will invoke after successful validation
-
-  console.log(watch("example")); // you can watch individual input by pass the name of the input
+  };
 
   return (
-
     <Card className={classes.container}>
       <CardContent>
-      <form
-        onSubmit={handleSubmit(data => onSubmit(data, questions, questionsId))}
-      >
-        <label className={classes.label}>Full Name</label>
-        <input
-          className={classes.input}
-          placeholder="Full Name"
-          name="fullname"
-          ref={register}
-        />
-        <label className={classes.label}>CITY/TOWN/VILLAGE</label>
-        <input
-          className={classes.input}
-          placeholder="City"
-          name="city"
-          ref={register({ required: true })}
-        />
-        <label className={classes.label}>Address In Short</label>
-        <input
-          className={classes.input}
-          placeholder="Address"
-          name="address"
-          ref={register}
-        />
-        <label className={classes.label}>Mobile No.</label>
-        <input
-          className={classes.input}
-          placeholder="Mobile Number"
-          name="mobile"
-          ref={register}
-        />
-        {questions.map(question => {
-          return question.map((row,index) => (
-            <Card className={classes.questionfields}>
-              <CardContent>
-            <fieldset >
-              <fieldset>
-          <label>{index+1}. {row.question}</label>
-              </fieldset>
-              <fieldset>
-              <input
-                type="radio"
-                value="YES"
-                name={row.question}
-                ref={register}
-                label="YES"
-              />
-              <label>YES</label>
-              </fieldset>
-              <fieldset>
-              <input
-                type="radio"
-                value="NO"
-                name={row.question}
-                ref={register}
-              />
-              <label>NO</label>
-              </fieldset>
-            </fieldset>
-            </CardContent>
-            </Card>
-          ));
-        })}
-        {errors.exampleRequired && <p>This field is required</p>}
-        <CardActions>
-        <input className={classes.button} type="submit" />
-        </CardActions>
-      </form>
+        <form
+          onSubmit={handleSubmit(data =>
+            onSubmit(data, questions, questionsId)
+          )}
+        >
+          <label className={classes.label}>Full Name</label>
+          <input
+            className={classes.input}
+            placeholder="Full Name"
+            name="fullname"
+            ref={register}
+          />
+          <label className={classes.label}>CITY/TOWN/VILLAGE</label>
+          <input
+            className={classes.input}
+            placeholder="City"
+            name="city"
+            ref={register({ required: true })}
+          />
+          <label className={classes.label}>Address In Short</label>
+          <input
+            className={classes.input}
+            placeholder="Address"
+            name="address"
+            ref={register}
+          />
+          <label className={classes.label}>Mobile No.</label>
+          <input
+            className={classes.input}
+            placeholder="Mobile Number"
+            name="mobile"
+            ref={register}
+          />
+          {questions.map(question => {
+            return question.map((row, index) => (
+              <Card className={classes.questionfields}>
+                <CardContent>
+                  <fieldset>
+                    <fieldset>
+                      <label>
+                        {index + 1}. {row.question}
+                      </label>
+                    </fieldset>
+                    <fieldset>
+                      <input
+                        type="radio"
+                        value="YES"
+                        name={row.question}
+                        ref={register}
+                        label="YES"
+                      />
+                      <label>YES</label>
+                    </fieldset>
+                    <fieldset>
+                      <input
+                        type="radio"
+                        value="NO"
+                        name={row.question}
+                        ref={register}
+                      />
+                      <label>NO</label>
+                    </fieldset>
+                  </fieldset>
+                </CardContent>
+              </Card>
+            ));
+          })}
+          {errors.exampleRequired && <p>This field is required</p>}
+          <CardActions>
+            <input className={classes.button} type="submit" />
+          </CardActions>
+        </form>
       </CardContent>
     </Card>
-
   );
 }
 
