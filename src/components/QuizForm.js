@@ -32,6 +32,13 @@ const useStyles = makeStyles(theme => ({
     left: "30%",
     width: "100%"
   },
+  questionfields:{
+    border: "1px solid #cfd8dc",
+    boxShadow: "7px 5px #eeeeee",
+    margin: 11,
+    display: "block"
+    
+  },
   input: {
     boxShadow: "3px 5px #eeeeee",
     display: "block",
@@ -49,7 +56,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 13,
     marginTop: 20,
     fontSize: 14,
-    fontWeight: 200
+    fontWeight: 200,
+    marginLeft: 14,
+    fontFamily: "sans-serif"
   },
   button: {
     backgroundColor: "#ec5990",
@@ -226,6 +235,7 @@ function QuizForm(props) {
         <label className={classes.label}>CITY/TOWN/VILLAGE</label>
         <input
           className={classes.input}
+          placeholder="City"
           name="city"
           ref={register({ required: true })}
         />
@@ -244,9 +254,14 @@ function QuizForm(props) {
           ref={register}
         />
         {questions.map(question => {
-          return question.map(row => (
-            <fieldset>
-              <label>{row.question}</label>
+          return question.map((row,index) => (
+            <Card className={classes.questionfields}>
+              <CardContent>
+            <fieldset >
+              <fieldset>
+          <label>{index+1}. {row.question}</label>
+              </fieldset>
+              <fieldset>
               <input
                 type="radio"
                 value="YES"
@@ -255,6 +270,8 @@ function QuizForm(props) {
                 label="YES"
               />
               <label>YES</label>
+              </fieldset>
+              <fieldset>
               <input
                 type="radio"
                 value="NO"
@@ -262,7 +279,10 @@ function QuizForm(props) {
                 ref={register}
               />
               <label>NO</label>
+              </fieldset>
             </fieldset>
+            </CardContent>
+            </Card>
           ));
         })}
         {errors.exampleRequired && <p>This field is required</p>}
