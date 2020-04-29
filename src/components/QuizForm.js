@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Field, Form, Formik } from "formik";
 import { v5 as uuidv5 } from "uuid";
-import { TextField } from "formik-material-ui";
+
 import { useForm, Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { Grid } from "@material-ui/core";
@@ -13,23 +13,38 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+
+
 import { fontSize, letterSpacing } from "@material-ui/system";
 const leftproportion = "41%";
 
 const useStyles = makeStyles(theme => ({
   container: {
+    border: "1px solid #cfd8dc",
+    boxShadow: "7px 5px #eeeeee",
     top: 176,
     position: "absolute",
-    left: leftproportion,
-    maxWidth: 500,
-    margin: "0 auto"
+    maxWidth: "45%",
+    marginBottom: 75,
+    left: "30%",
+    width: "100%"
+  },
+  questionfields:{
+    border: "1px solid #cfd8dc",
+    boxShadow: "7px 5px #eeeeee",
+    margin: 11,
+    display: "block"
+    
   },
   input: {
+    boxShadow: "3px 5px #eeeeee",
     display: "block",
-    box: "border - box",
     width: "100%",
     borderRadius: 4,
-    border: "1px solid white",
+    border: "1px solid #bdbdbd",
     padding: "10px 15px",
     margin: 10,
     fontSize: 14
@@ -41,7 +56,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 13,
     marginTop: 20,
     fontSize: 14,
-    fontWeight: 200
+    fontWeight: 200,
+    marginLeft: 14,
+    fontFamily: "sans-serif"
   },
   button: {
     backgroundColor: "#ec5990",
@@ -224,7 +241,9 @@ function QuizForm(props) {
   console.log(watch("example")); // you can watch individual input by pass the name of the input
 
   return (
-    <div className={classes.container}>
+
+    <Card className={classes.container}>
+      <CardContent>
       <form
         onSubmit={handleSubmit(data => onSubmit(data, questions, questionsId))}
       >
@@ -238,6 +257,7 @@ function QuizForm(props) {
         <label className={classes.label}>CITY/TOWN/VILLAGE</label>
         <input
           className={classes.input}
+          placeholder="City"
           name="city"
           ref={register({ required: true })}
         />
@@ -256,9 +276,14 @@ function QuizForm(props) {
           ref={register}
         />
         {questions.map(question => {
-          return question.map(row => (
-            <fieldset>
-              <label>{row.question}</label>
+          return question.map((row,index) => (
+            <Card className={classes.questionfields}>
+              <CardContent>
+            <fieldset >
+              <fieldset>
+          <label>{index+1}. {row.question}</label>
+              </fieldset>
+              <fieldset>
               <input
                 type="radio"
                 value="YES"
@@ -267,6 +292,8 @@ function QuizForm(props) {
                 label="YES"
               />
               <label>YES</label>
+              </fieldset>
+              <fieldset>
               <input
                 type="radio"
                 value="NO"
@@ -274,13 +301,20 @@ function QuizForm(props) {
                 ref={register}
               />
               <label>NO</label>
+              </fieldset>
             </fieldset>
+            </CardContent>
+            </Card>
           ));
         })}
         {errors.exampleRequired && <p>This field is required</p>}
+        <CardActions>
         <input className={classes.button} type="submit" />
+        </CardActions>
       </form>
-    </div>
+      </CardContent>
+    </Card>
+
   );
 }
 

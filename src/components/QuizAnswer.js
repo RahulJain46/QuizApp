@@ -138,6 +138,9 @@ export default function QuizAnswer1(props) {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
+            <TableCell key="name" style={{ minWidth: 170 }}>
+                NUMBER
+              </TableCell>
               <TableCell key="name" style={{ minWidth: 170 }}>
                 QUESTIONS
               </TableCell>
@@ -151,8 +154,9 @@ export default function QuizAnswer1(props) {
           </TableHead>
           <TableBody>
             {answers.map(answer => {
-              return answer.map(row => (
+              return answer.map((row,index) => (
                 <TableRow>
+                  <TableCell>{index+1}</TableCell>                
                   <TableCell component="th" scope="row">
                     {row.question}
                   </TableCell>
