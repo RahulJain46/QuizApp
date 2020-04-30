@@ -242,6 +242,11 @@ export default function QuizResult(props) {
           columns={[
             {
               width: 120,
+              label: "Time",
+              dataKey: "time"
+            },
+            {
+              width: 120,
               label: "Name of participant",
               dataKey: "fullname"
             },

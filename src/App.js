@@ -25,7 +25,7 @@ function App() {
         <Route path="/answerSheets" component={QuizAnswers} />
         <Route path="/answerSheet/:date" component={QuizAnswer} />
         <Route path="/quizresult/:date" component={QuizResult} />
-        <Route path="/yourresponse/:id" component={UserResponse} />
+        <Route path="/yourresponse/:id/:date" component={UserResponse} />
         <Route component={PageNotFound} />
       </Switch>
       <Footer />

@@ -30,6 +30,11 @@ server.use((req, res, next) => {
   next();
 });
 
+server.get("/users/userAnswer", function(req, res, next) {
+  console.log("rahul");
+  next();
+});
+
 // Use default router
 server.use(router);
 

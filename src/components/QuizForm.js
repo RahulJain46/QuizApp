@@ -110,7 +110,8 @@ function QuizForm(props) {
     );
     const date = props.match.params.date;
     const uuid1 = uuidv5(date, uuidv5.DNS);
-    const userData = Object.assign(data, { id: uuid, score });
+    const time = new Date().toLocaleString();
+    const userData = Object.assign(data, { id: uuid, score, time });
     let userResponseJson = {};
     let userAnswer = [];
     userAnswer.push(userData);
@@ -157,7 +158,7 @@ function QuizForm(props) {
             };
             fetch(`http://localhost:3001/users/`, options).then(res => {
               alert("your score is : " + score);
-              history.push(`/yourresponse/${uuid}`, userData);
+              history.push(`/yourresponse/${uuid}/${date}`, userData);
             });
             return;
           } else {
@@ -180,7 +181,10 @@ function QuizForm(props) {
                 fetch(`http://localhost:3001/users/${uuid1}`, options).then(
                   res => {
                     alert("your score is : " + score);
-                    return history.push(`/yourresponse/${uuid}`, userData);
+                    return history.push(
+                      `/yourresponse/${uuid}/${date}`,
+                      userData
+                    );
                   }
                 );
               });
@@ -203,7 +207,7 @@ function QuizForm(props) {
             className={classes.input}
             placeholder="Full Name"
             name="fullname"
-            ref={register}
+            ref={register({ required: true })}
           />
           <label className={classes.label}>CITY/TOWN/VILLAGE</label>
           <input
@@ -217,14 +221,14 @@ function QuizForm(props) {
             className={classes.input}
             placeholder="Address"
             name="address"
-            ref={register}
+            ref={register({ required: true })}
           />
           <label className={classes.label}>Mobile No.</label>
           <input
             className={classes.input}
             placeholder="Mobile Number"
             name="mobile"
-            ref={register}
+            ref={register({ required: true })}
           />
           {questions.map(question => {
             return question.map((row, index) => (
@@ -241,7 +245,7 @@ function QuizForm(props) {
                         type="radio"
                         value="YES"
                         name={row.question}
-                        ref={register}
+                        ref={register({ required: true })}
                         label="YES"
                       />
                       <label>YES</label>
@@ -251,7 +255,7 @@ function QuizForm(props) {
                         type="radio"
                         value="NO"
                         name={row.question}
-                        ref={register}
+                        ref={register({ required: true })}
                       />
                       <label>NO</label>
                     </fieldset>
