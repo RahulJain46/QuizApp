@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,6 +6,11 @@ import { withStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import Paper from "@material-ui/core/Paper";
 import { AutoSizer, Column, Table } from "react-virtualized";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   paper: {
@@ -14,6 +19,25 @@ const useStyles = makeStyles({
     top: 151,
     marginLeft: "20%",
     marginRight: "20%"
+  },
+  root: {
+    flexGrow: 1,
+    marginTop: 150,
+    position: "absolute",
+    marginBottom: 73,
+    left: "25%",
+    right: "25%"
+  },
+  bullet: {
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
+  },
+  title: {
+    fontSize: 14
+  },
+  pos: {
+    marginBottom: 12
   }
 });
 
@@ -187,46 +211,53 @@ for (let i = 0; i < 200; i += 1) {
   rows.push(createData(i, ...randomSelection));
 }
 
-export default function ReactVirtualizedTable() {
-
+export default function QuizResult(props) {
   const classes = useStyles();
+  const [users, setUsers] = useState([]);
+  const date = props.match.params.date;
+  useEffect(() => {
+    fetch(`http://localhost:3001/users?date=${date}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(users => {
+        const usersJson = {};
+        setUsers(users[0].userAnswer);
+        // users.map(user => {
+        //   usersJson.push(user.userAnswer);
+        // });
+        // setUsers(usersJson);
+      });
+  }, []);
+
   return (
-    <Paper className={classes.paper}>
-      <VirtualizedTable
-        rowCount={rows.length}
-        rowGetter={({ index }) => rows[index]}
-        columns={[
-          {
-            width: 200,
-            label: "Dessert",
-            dataKey: "dessert"
-          },
-          {
-            width: 120,
-            label: "Calories\u00A0(g)",
-            dataKey: "calories",
-            numeric: true
-          },
-          {
-            width: 120,
-            label: "Fat\u00A0(g)",
-            dataKey: "fat",
-            numeric: true
-          },
-          {
-            width: 120,
-            label: "Carbs\u00A0(g)",
-            dataKey: "carbs",
-            numeric: true
-          },
-          {
-            width: 120,
-            label: "Protein\u00A0(g)",
-            dataKey: "protein",
-            numeric: true
-          }
-        ]}
-      />
-    </Paper>
+    <div>
+      <Typography className={classes.pos} color="textSecondary">
+        adjective
+      </Typography>
+      <Paper className={classes.paper}>
+        <VirtualizedTable
+          rowCount={users.length}
+          rowGetter={({ index }) => users[index]}
+          columns={[
+            {
+              width: 120,
+              label: "Name of participant",
+              dataKey: "fullname"
+            },
+            {
+              width: 120,
+              label: "City",
+              dataKey: "city"
+            },
+            {
+              width: 120,
+              label: "Score",
+              dataKey: "score"
+            }
+          ]}
+        />
+      </Paper>
+    </div>
   );
 }

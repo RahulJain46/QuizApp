@@ -157,7 +157,7 @@ function QuizForm(props) {
             };
             fetch(`http://localhost:3001/users/`, options).then(res => {
               alert("your score is : " + score);
-              history.push(`/yourresponse/${uuid}`);
+              history.push(`/yourresponse/${uuid}`, userData);
             });
             return;
           } else {
@@ -180,7 +180,7 @@ function QuizForm(props) {
                 fetch(`http://localhost:3001/users/${uuid1}`, options).then(
                   res => {
                     alert("your score is : " + score);
-                    return history.push(`/yourresponse/${uuid}`);
+                    return history.push(`/yourresponse/${uuid}`, userData);
                   }
                 );
               });
