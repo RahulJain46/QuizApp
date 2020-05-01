@@ -13,13 +13,16 @@ import TableRow from "@material-ui/core/TableRow";
 
 const useStyles = makeStyles({
   tableheading: {
-    width: "%",
-    position: "absolute",
-    marginTop: 151,
-    left: "19%"
+    // width: "%",
+    position: "fixed",
+    top: 151,
+    left: "19%",
+    bottom: "9%"
   },
   container: {
-    maxHeight: 705
+    maxHeight: "100%",
+    // position: "fixed",
+  left: "19%"
   },
   tablecolumns: {
     background: "blue"

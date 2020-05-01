@@ -40,12 +40,14 @@ const useStyles = makeStyles({
   totalCount: {
     position: "relative",
     top: 153,
-    marginLeft: "30%"
+    marginLeft: "30%",
+    fontSize: "xx-large",
+    fontWeight: 600
   },
   insideTable: {
     marginLeft: "1%",
     position: "absolute",
-
+    
   }
 });
 
