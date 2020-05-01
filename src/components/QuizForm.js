@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
 
 const useStyles = makeStyles(theme => ({
@@ -31,6 +32,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     borderRadius: 4,
     border: "1px solid #bdbdbd",
+    backgroundColor: "#e9ecef40",
     padding: "10px 15px",
     margin: 10,
     fontSize: 14
@@ -41,21 +43,22 @@ const useStyles = makeStyles(theme => ({
     display: "block",
     marginBottom: 13,
     marginTop: 20,
-    fontSize: 14,
-    fontWeight: 200,
+    fontSize: 19,
+    color: "black",
+    fontWeight: 500,
     marginLeft: 14,
     fontFamily: "sans-serif"
   },
   button: {
-    backgroundColor: "#ec5990",
-    color: "white",
-    textTransform: "uppercase",
-    border: "none",
-    marginTop: 40,
-    padding: 20,
-    fontSize: 16,
-    fontWeight: 100,
-    letterSpacing: 10
+    backgroundColor: "#1976d2",
+    color: "#fff",
+    marginLeft: 15,
+    width: 123,
+    marginTop: 13,
+    height: 44,
+    "&:hover": {
+      backgroundColor: "#303f9f"
+    }
   }
 }));
 
@@ -236,7 +239,7 @@ function QuizForm(props) {
                 <CardContent>
                   <fieldset>
                     <fieldset>
-                      <label>
+                      <label className={classes.label}>
                         {index + 1}. {row.question}
                       </label>
                     </fieldset>
@@ -265,9 +268,9 @@ function QuizForm(props) {
             ));
           })}
           {errors.exampleRequired && <p>This field is required</p>}
-          <CardActions>
-            <input className={classes.button} type="submit" />
-          </CardActions>
+          <Button variant="contained" className={classes.button} type="submit">
+            Submit
+          </Button>
         </form>
       </CardContent>
     </Card>

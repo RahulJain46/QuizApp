@@ -19,6 +19,13 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center"
+  },
+  button: {
+    backgroundColor: "#1976d2",
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "#303f9f"
+    }
   }
 }));
 
@@ -58,7 +65,7 @@ function OldQuiz() {
               <Grid item xs={6}>
                 <Link to={`/datemonthquiz` + `/${date}`}>
                   <Paper className={classes.paper}>
-                    <Button variant="contained" color="secondary">
+                    <Button variant="contained" className={classes.button}>
                       QUIZ {date}
                     </Button>
                   </Paper>
@@ -67,7 +74,7 @@ function OldQuiz() {
               <Grid item xs={6}>
                 <Link to={`/quizresult` + `/${date}`}>
                   <Paper className={classes.paper}>
-                    <Button variant="contained" color="secondary">
+                    <Button variant="contained" className={classes.button}>
                       QUIZ RESULT {date}
                     </Button>
                   </Paper>

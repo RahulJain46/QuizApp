@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -19,6 +18,13 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center"
+  },
+  button: {
+    backgroundColor: "#1976d2",
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "#303f9f"
+    }
   }
 }));
 
@@ -36,7 +42,7 @@ function Home() {
         <Grid item xs={6}>
           <Link to={`/datemonthquiz` + `/${day + "-" + month}`}>
             <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
+              <Button variant="contained" className={classes.button}>
                 QUIZ {day + "-" + month + "-" + year}
               </Button>
             </Paper>
@@ -45,7 +51,7 @@ function Home() {
         <Grid item xs={6}>
           <Link to={`/quizresult` + `/${day + "-" + month}`}>
             <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
+              <Button variant="contained" className={classes.button}>
                 QUIZ RESULT {day + "-" + month + "-" + year}
               </Button>
             </Paper>
@@ -54,7 +60,7 @@ function Home() {
         <Grid item xs={12}>
           <Link to="/oldquizresults">
             <Paper className={classes.paper}>
-              <Button variant="contained" color="secondary">
+              <Button variant="contained" className={classes.button}>
                 OLD QUIZ & RESULTS
               </Button>
             </Paper>

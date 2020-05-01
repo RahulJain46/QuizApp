@@ -24,6 +24,13 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     left: "40%",
     top: "40%"
+  },
+  button: {
+    backgroundColor: "#1976d2",
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "#303f9f"
+    }
   }
 }));
 
@@ -62,7 +69,7 @@ function QuizAnswers() {
             <Grid item xs={6}>
               <Link to={`/answersheet` + `/${date}`}>
                 <Paper className={classes.paper}>
-                  <Button variant="contained" color="secondary">
+                  <Button variant="contained" className={classes.button}>
                     {date}
                   </Button>
                 </Paper>
