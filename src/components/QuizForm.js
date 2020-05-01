@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "3%"
   },
   input: {
-    boxShadow: "3px 5px #eeeeee",
+    boxShadow: "7px 5px #eeeeee",
     display: "block",
     width: "97%",
     borderRadius: 4,
