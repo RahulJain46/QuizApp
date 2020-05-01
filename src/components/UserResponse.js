@@ -217,7 +217,7 @@ function UserResponse(props) {
           <Link to={`/quizresult/${date}`}>
             <Paper className={classes.paper}>
               <Button variant="contained" className={classes.button}>
-                View all results
+                View Results
               </Button>
             </Paper>
           </Link>
