@@ -36,7 +36,7 @@ function OldQuiz() {
 
   useEffect(() => {
     const dateArray = [];
-    fetch("http://localhost:3001/data")
+    fetch("https://samplecovide19s.herokuapp.com/data")
       .then(questionJson => {
         return questionJson.json();
       })

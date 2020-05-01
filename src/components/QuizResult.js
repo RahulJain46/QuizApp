@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     top: 166,
     marginLeft: "30%",
     marginRight: "30%",
-    border: "1px solid #bdbdbd",
+    border: "1px solid #bdbdbd"
   },
   root: {
     flexGrow: 1,
@@ -46,8 +46,7 @@ const useStyles = makeStyles({
   },
   insideTable: {
     marginLeft: "1%",
-    position: "absolute",
-    
+    position: "absolute"
   }
 });
 
@@ -237,7 +236,8 @@ export default function QuizResult(props) {
         //   usersJson.push(user.userAnswer);
         // });
         // setUsers(usersJson);
-      });
+      })
+      .catch(error => console.log("error is", error));
   }, []);
 
   return (
