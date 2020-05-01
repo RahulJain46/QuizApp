@@ -14,11 +14,12 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   paper: {
-    height: 709,
+    height: 708,
     position: "relative",
-    top: 151,
-    marginLeft: "20%",
-    marginRight: "20%"
+    top: 166,
+    marginLeft: "30%",
+    marginRight: "30%",
+    border: "1px solid #bdbdbd",
   },
   root: {
     flexGrow: 1,
@@ -36,8 +37,15 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14
   },
-  pos: {
-    marginBottom: 12
+  totalCount: {
+    position: "relative",
+    top: 153,
+    marginLeft: "30%"
+  },
+  insideTable: {
+    marginLeft: "1%",
+    position: "absolute",
+
   }
 });
 
@@ -232,31 +240,32 @@ export default function QuizResult(props) {
 
   return (
     <div>
-      <Typography className={classes.pos} color="textSecondary">
-        adjective
+      <Typography className={classes.totalCount} color="textSecondary">
+        Total Number of participants: {users.length}
       </Typography>
       <Paper className={classes.paper}>
         <VirtualizedTable
           rowCount={users.length}
+          className={classes.insideTable}
           rowGetter={({ index }) => users[index]}
           columns={[
             {
-              width: 120,
+              width: 200,
               label: "Time",
               dataKey: "time"
             },
             {
-              width: 120,
+              width: 200,
               label: "Name of participant",
               dataKey: "fullname"
             },
             {
-              width: 120,
+              width: 180,
               label: "City",
               dataKey: "city"
             },
             {
-              width: 120,
+              width: 150,
               label: "Score",
               dataKey: "score"
             }
