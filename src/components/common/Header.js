@@ -13,7 +13,10 @@ const useStyles = makeStyles(theme => ({
   navheader: {
     position: "relative",
     padding: 30,
-    color: "#f5f5f5"
+    color: "#f5f5f5",
+    "&:hover": {
+      color: "#b0bec5"
+    }
   },
   root: {
     flexGrow: 1
