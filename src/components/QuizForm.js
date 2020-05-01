@@ -24,12 +24,21 @@ const useStyles = makeStyles(theme => ({
     border: "1px solid #cfd8dc",
     boxShadow: "7px 5px #eeeeee",
     margin: 11,
-    display: "block"
+    display: "block",
+    "&:hover": {
+      backgroundColor: "#fafafa"
+    }
+  },
+  questionContent: {
+    marginLeft: "-1%"
+  },
+  questionOption: {
+    marginLeft: "3%"
   },
   input: {
     boxShadow: "3px 5px #eeeeee",
     display: "block",
-    width: "100%",
+    width: "97%",
     borderRadius: 4,
     border: "1px solid #bdbdbd",
     backgroundColor: "#e9ecef40",
@@ -236,14 +245,14 @@ function QuizForm(props) {
           {questions.map(question => {
             return question.map((row, index) => (
               <Card className={classes.questionfields}>
-                <CardContent>
+                <CardContent  >
                   <fieldset>
-                    <fieldset>
+                    <fieldset className={classes.questionContent}>
                       <label className={classes.label}>
                         {index + 1}. {row.question}
                       </label>
                     </fieldset>
-                    <fieldset>
+                    <fieldset className={classes.questionOption} >
                       <input
                         type="radio"
                         value="YES"
@@ -253,7 +262,7 @@ function QuizForm(props) {
                       />
                       <label>YES</label>
                     </fieldset>
-                    <fieldset>
+                    <fieldset className={classes.questionOption}>
                       <input
                         type="radio"
                         value="NO"
